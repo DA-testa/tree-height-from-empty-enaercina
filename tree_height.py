@@ -1,70 +1,53 @@
-import os
-from collections import deque
+import sys
+import threading
+import numpy
 
-class Node:
-    def __init__(self, index):
-        self.index = index
-        self.children = []
 
-    def add_child(self, node):
-        self.children.append(node)
-
-def compute_height(root, nodes):
-    queue = deque([root])
-    height = 0
-
-    while queue:
-        level_size = len(queue)
-
-        for i in range(level_size):
-            node = queue.popleft()
-
-            for child in node.children:
-                queue.append(child)
-
-        height += 1
-
-    return height
-
-def process_input(input_str):
-    input_lines = input_str.strip().split('\n')
-    n = int(input_lines[0])
-    parents = list(map(int, input_lines[1].strip().split()))
-    return n, parents
-
-def process_file(filename):
-    with open(filename, 'r') as file:
-        n = int(file.readline().strip())
-        parents = list(map(int, file.readline().strip().split()))
-    return n, parents
-
-if __name__ == '__main__':
-    while True:
-        input_type = input("Enter input type (I for input, F for file): ")
-        if input_type.upper() == "I":
-            input_str = input("Enter the input string: ")
-            n, parents = process_input(input_str)
-            break
-        elif input_type.upper() == "F":
-            test_name = input("Enter the test name: ")
-            filename = f"test/{test_name}"
-            if os.path.isfile(filename):
-                n, parents = process_file(filename)
-                break
-            else:
-                print("File not found. Please enter a valid test name.")
+def compute_height(n, parents):
+    sakne = None
+    f = [[]for i in range(n)]
+    for k in range(n):
+        if parents[k] == -1:
+          sakne = k 
         else:
-            print("Invalid input type. Please enter I or F.")
+          f[parents[k]].append(k)
 
-    nodes = [Node(i) for i in range(n)]
-    root = None
-    for i in range(n):
-        parent_index = parents[i]
-        if parent_index == -1:
-            root = nodes[i]
+
+
+# Write this function
+    def max_height(o):
+        augstums = 1 
+        if not f[o]:
+            return augstums
         else:
-            parent_node = nodes[parent_index]
-            parent_node.add_child(nodes[i])
+            for child in f[o]:
+                augstums = max(augstums, max_height(child))
+            return augstums + 1
+    return max_height(sakne)
+# Your code here
 
-    height = compute_height(root, nodes)
-    print(height)
+def main():
+    atbilde = input("F vai I?")
+    if "I" in atbilde:
+       n = int(input())
+       parents = list(map(int,input().split()))
+    elif "F" in atbilde:
+         failanos = input()
+         file = './test/' + failanos
+         if "a" not in failanos:
+             try: 
+                 with open(file) as file1:
+                    n = int(file1.readline())
+                    parents = list(map(int, file1.readline().split()))
+             except Exception as kluda:
+                 print("kluda:", str(kluda))
+                 return
+         else:
+             print("nepareizs nosaukums")
+             return
+
+    print(compute_height(n, parents))
+
+sys.setrecursionlimit(10**7)  # max depth of recursion
+threading.stack_size(2**27)   # new thread will get stack of such size
+threading.Thread(target=main).start()
