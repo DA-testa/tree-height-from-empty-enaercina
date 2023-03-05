@@ -13,8 +13,6 @@ def compute_height(n, parents):
           f[parents[k]].append(k)
 
 
-
-# Write this function
     def max_height(o):
         augstums = 1 
         if not f[o]:
@@ -24,7 +22,6 @@ def compute_height(n, parents):
                 augstums = max(augstums, max_height(child))
             return augstums + 1
     return max_height(sakne)
-# Your code here
 
 def main():
     atbilde = input("F vai I?")
@@ -48,6 +45,7 @@ def main():
 
     print(compute_height(n, parents))
 
-sys.setrecursionlimit(10**7)  # max depth of recursion
-threading.stack_size(2**27)   # new thread will get stack of such size
+
+sys.setrecursionlimit(10**7)  
+threading.stack_size(2**27)   
 threading.Thread(target=main).start()
