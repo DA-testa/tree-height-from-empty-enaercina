@@ -1,4 +1,3 @@
-
 import os
 from collections import deque
 
@@ -28,9 +27,9 @@ def compute_height(root, nodes):
     return height
 
 if __name__ == '__main__':
-    input_type = input("Enter input type (I for input, F for file): ")
-    if input_type == "F":
-        while True:
+    while True:
+        input_type = input("Enter input type (I for input, F for file): ")
+        if input_type == "F":
             test_name = input("Enter the test name: ")
             filename = f"test/{test_name}"
             if os.path.isfile(filename):
@@ -40,9 +39,12 @@ if __name__ == '__main__':
                 break
             else:
                 print("File not found. Please enter a valid test name.")
-    else:
-        n = int(input())
-        parents = list(map(int, input().split()))
+        elif input_type == "I":
+            n = int(input())
+            parents = list(map(int, input().split()))
+            break
+        else:
+            print("Invalid input type. Please enter either 'I' or 'F'.")
 
     nodes = [Node(i) for i in range(n)]
     root = None
