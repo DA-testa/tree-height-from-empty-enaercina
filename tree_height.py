@@ -1,3 +1,4 @@
+# Ena Daniela Ercina 221RDB369
 import sys
 import threading
 import numpy
@@ -24,7 +25,7 @@ def compute_height(n, parents):
     return max_height(sakne)
 
 def main():
-    atbilde = input("F vai I?")
+    atbilde = input("ievadiet F vai I?")
     if "I" in atbilde:
        n = int(input())
        parents = list(map(int,input().split()))
