@@ -15,13 +15,16 @@ def compute_height(root, nodes):
 
     while queue:
         level_size = len(queue)
+
         for i in range(level_size):
             node = queue.popleft()
+
             for child in node.children:
                 queue.append(child)
+
         height += 1
 
-    return height - 1
+    return height
 
 if __name__ == '__main__':
     input_type = input("Enter input type (I for input, F for file): ")
