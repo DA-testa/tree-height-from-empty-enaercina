@@ -26,22 +26,35 @@ def compute_height(root, nodes):
 
     return height
 
+def process_input(input_str):
+    input_lines = input_str.strip().split('\n')
+    n = int(input_lines[0])
+    parents = list(map(int, input_lines[1].strip().split()))
+    return n, parents
+
+def process_file(filename):
+    with open(filename, 'r') as file:
+        n = int(file.readline().strip())
+        parents = list(map(int, file.readline().strip().split()))
+    return n, parents
+
 if __name__ == '__main__':
-    input_type = input("Enter input type (I for input, F for file): ")
-    if input_type == "F":
-        while True:
+    while True:
+        input_type = input("Enter input type (I for input, F for file): ")
+        if input_type == "F":
             test_name = input("Enter the test name: ")
             filename = f"test/{test_name}"
             if os.path.isfile(filename):
-                with open(filename, 'r') as file:
-                    n = int(file.readline().strip())
-                    parents = list(map(int, file.readline().strip().split()))
+                n, parents = process_file(filename)
                 break
             else:
                 print("File not found. Please enter a valid test name.")
-    else:
-        n = int(input())
-        parents = list(map(int, input().split()))
+        elif input_type == "I":
+            input_str = input("Enter the input string: ")
+            n, parents = process_input(input_str)
+            break
+        else:
+            print("Invalid input type. Please enter I or F.")
 
     nodes = [Node(i) for i in range(n)]
     root = None
