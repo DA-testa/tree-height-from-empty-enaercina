@@ -41,7 +41,11 @@ def process_file(filename):
 if __name__ == '__main__':
     while True:
         input_type = input("Enter input type (I for input, F for file): ")
-        if input_type == "F":
+        if input_type.upper() == "I":
+            input_str = input("Enter the input string: ")
+            n, parents = process_input(input_str)
+            break
+        elif input_type.upper() == "F":
             test_name = input("Enter the test name: ")
             filename = f"test/{test_name}"
             if os.path.isfile(filename):
@@ -49,10 +53,6 @@ if __name__ == '__main__':
                 break
             else:
                 print("File not found. Please enter a valid test name.")
-        elif input_type == "I":
-            input_str = input("Enter the input string: ")
-            n, parents = process_input(input_str)
-            break
         else:
             print("Invalid input type. Please enter I or F.")
 
